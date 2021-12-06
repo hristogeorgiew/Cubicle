@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const productService = require('../services/productService');
-
+const { validateProduct } = require('./helpers/productHelpers.js')
 const router = Router();
 
 //actions
@@ -13,9 +13,7 @@ router.get('/create', (req, res) => {
     res.render('create.hbs', {title: 'Create'})
 });
 
-router.post('/create', (req, res) => {
-    //TODO: Validate inputs
-    
+router.post('/create', validateProduct, (req, res) => {    
     productService.create(req.body);
 
     res.redirect('/products')
@@ -26,6 +24,7 @@ router.get('/details/:productId', (req, res) => {
 
     res.render('details.hbs', {title: 'Details', product})
 });
+
 
 module.exports = router;
 

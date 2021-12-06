@@ -1,6 +1,7 @@
 //дава ни уникални Id 
 const uniqid = require('uniqid');
 const fs = require('fs');
+const path = require('path');
 const Cube = require('../models/Cube.js')
 const productData = require('../config/products.json');
 
