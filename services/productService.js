@@ -8,6 +8,10 @@ function getAll() {
     return productData;
 }
 
+function getOne(id){
+    return productData.find(x => x.id == id)
+}
+
 function create(data){
     let cube = new Cube(
         uniqid(), 
@@ -28,5 +32,6 @@ function create(data){
 
 module.exports = {
     create,
-    getAll
+    getAll,
+    getOne
 }
