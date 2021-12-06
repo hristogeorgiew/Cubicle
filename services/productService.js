@@ -13,7 +13,7 @@ function getOne(id){
     return productData.find(x => x.id == id)
 }
 
-function create(data){
+function create(data, callback){
     let cube = new Cube(
         uniqid(), 
         data.name, 
@@ -23,12 +23,7 @@ function create(data){
     );
      
     productData.push(cube);
-    fs.writeFile(__dirname + '/../config/products.json', JSON.stringify(productData), (err) => {
-        if(err) {
-            console.log(err);
-            return;
-        }
-    })
+    fs.writeFile(__dirname + '/../config/products.json', JSON.stringify(productData), callback);
 }
 
 module.exports = {
