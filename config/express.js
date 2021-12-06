@@ -8,6 +8,11 @@ function setupExpress(app){
     
     app.set('view engine', 'hbs');
     app.use(express.static('public'));
+
+    //настройка за да ни показва данните когато идват по httpm
+    app.use(express.urlencoded({
+        extended: true
+    }))
 }
 
 module.exports = setupExpress;
