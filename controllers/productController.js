@@ -4,11 +4,11 @@ const router = Router();
 
 router.get('/', (req, res) => {
     //action
-    res.render('home.hbs', { layout: false })
+    res.render('home.hbs')
 });
 
 router.get('/create', (req, res) => {
-    res.render('create.hbs', { layout: false })
+    res.render('create.hbs')
 });
 
 module.exports = router;
