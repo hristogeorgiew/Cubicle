@@ -1,33 +1,32 @@
 //дава ни уникални Id 
 const uniqid = require('uniqid');
-const fs = require('fs/promises');
-const path = require('path');
 const Cube = require('../models/Cube.js')
-const productData = require('../config/products.json');
+const productData = require('../data/productData.js');
  
 function getAll(query) {
-    let result = productData;
+    let products = productData.getAll();
 
     if(query.search) {
-        result = result.filter(x => x.name.toLowerCase().includes(query.search));
+        products = products.filter(x => x.name.toLowerCase().includes(query.search));
     }
 
     if(query.from){
-        result = result.filter(x => Number(x.level) >=  query.from)
+        products = products.filter(x => Number(x.level) >=  query.from)
     }
 
     if(query.to){
-        result = result.filter(x => Number(x.level) <=  query.to)
+        products = products.filter(x => Number(x.level) <=  query.to)
     }
 
-    return result;
+    return products;
 }
 
 function getOne(id){
-    return productData.find(x => x.id == id)
+    return productData.getOne(id)
 }
 
-function create(data, callback){
+//Неговата работа е да създаде модела 
+function create(data){
     let cube = new Cube(
         uniqid(), 
         data.name, 
@@ -36,11 +35,10 @@ function create(data, callback){
         data.difficultyLevel
     );
      
-    productData.push(cube);
     //fs.writeFile(__dirname + '/../config/products.json', JSON.stringify(productData), callback);
 
     // ще върне промис
-    return fs.writeFile(__dirname + '/../config/products.json', JSON.stringify(productData))
+    return productData.create(cube)
 }
 
 module.exports = {
